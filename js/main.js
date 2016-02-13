@@ -54,16 +54,31 @@ function startVideo(videoSource) {
   navigator.getUserMedia(constraints, successCallback, errorCallback);
 }
 
+
+
 function initDraggable() {
-  console.log('jquery');
     $('.draggable').each(function() {
       $(this).draggable({
-      stack: ".handler"
-    });
+        stack: ".handler"
+      });
     });
     $('.resizable').each(function() {
-      console.log('bla');
-      $(this).resizable();
+      $(this).resizable({
+        animate: true
+      });
     });
 }
 
+function initializeClock(id, endtime){
+  var clock = document.getElementById(id);
+  var timeinterval = setInterval(function(){
+    var t = getTimeRemaining(endtime);
+    clock.innerHTML = 'days: ' + t.days + '<br>' +
+                      'hours: '+ t.hours + '<br>' +
+                      'minutes: ' + t.minutes + '<br>' +
+                      'seconds: ' + t.seconds;
+    if(t.total<=0){
+      clearInterval(timeinterval);
+    }
+  },1000);
+}
