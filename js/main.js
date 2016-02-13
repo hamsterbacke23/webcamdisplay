@@ -55,14 +55,12 @@ function startVideo(videoSource) {
 }
 
 function initDraggable() {
-  console.log('jquery');
     $('.draggable').each(function() {
       $(this).draggable({
       stack: ".handler"
     });
     });
     $('.resizable').each(function() {
-      console.log('bla');
       $(this).resizable();
     });
 }
