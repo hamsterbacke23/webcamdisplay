@@ -1,13 +1,9 @@
 'use strict';
 
 var videoElement = document.querySelector('video');
-var audioSelect = document.querySelector('select#audioSource');
-var videoSelect = document.querySelector('select#videoSource');
-
 
 navigator.getUserMedia = navigator.getUserMedia ||
   navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-
 
 var $videoWrapper = $('<div class="handler draggable resizable"><video muted autoplay ></video></div>');
 
