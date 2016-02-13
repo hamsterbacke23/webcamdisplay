@@ -1,84 +1,107 @@
 'use strict';
+$(function () {
+  navigator.getUserMedia = navigator.getUserMedia ||
+    navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
-var videoElement = document.querySelector('video');
-var audioSelect = document.querySelector('select#audioSource');
-var videoSelect = document.querySelector('select#videoSource');
+  var $videoHandler = $('.handler');
+  var $video = $('<video muted autoplay ></video>');
+  var $videoContainer = $('.videoContainer');
+  var $rotateButton = $('.rotateButton');
 
+  // init stuff
+  $('#clock').fitText(0.3);
+  setRotateVideoBtnListener();
 
-navigator.getUserMedia = navigator.getUserMedia ||
-  navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-
-
-var $videoWrapper = $('<div class="handler draggable resizable"><video muted autoplay ></video></div>');
-
-function gotSources(sourceInfos) {
-  for (var i = 0; i !== sourceInfos.length; ++i) {
-    var sourceInfo = sourceInfos[i];
-    if (sourceInfo.kind === 'video') {
-      startVideo(sourceInfo.id);
+  function gotSources(sourceInfos) {
+    for (var i = 0; i !== sourceInfos.length; ++i) {
+      var sourceInfo = sourceInfos[i];
+      if (sourceInfo.kind === 'video') {
+        startVideo(sourceInfo.id);
+      }
     }
   }
-}
 
-if (typeof MediaStreamTrack === 'undefined' ||
-    typeof MediaStreamTrack.getSources === 'undefined') {
-  alert('This browser does not support MediaStreamTrack.\n\nTry Chrome.');
-} else {
-  MediaStreamTrack.getSources(gotSources);
-}
+  if (typeof MediaStreamTrack === 'undefined' ||
+      typeof MediaStreamTrack.getSources === 'undefined') {
+    alert('This browser does not support MediaStreamTrack.\n\nTry Chrome.');
+  } else {
+    MediaStreamTrack.getSources(gotSources);
+  }
 
-function successCallback(stream) {
-  window.stream = stream; // make stream available to console
-  var $videoWrapperInstance = $videoWrapper.clone();
-  $('.videoContainer').append($videoWrapperInstance);
+  function successCallback(stream) {
+    window.stream = stream; // make stream available to console
+    var $videoHandlerInstance = $videoHandler.clone().show();
+    var $videoInstance = $video.clone();
+    $videoContainer.append($videoHandlerInstance.append($videoInstance));
 
-  var $videoElement = $videoWrapperInstance.find('video');
-  $videoElement.attr('src', window.URL.createObjectURL(stream));
-  $videoElement[0].play();
+    $videoInstance.attr('src', window.URL.createObjectURL(stream));
+    $videoInstance[0].play();
 
-  initDraggable();
-}
+    initDragResize();
 
-function errorCallback(error) {
-  console.log('navigator.getUserMedia error: ', error);
-}
+  }
 
-function startVideo(videoSource) {
-  var constraints = {
-    video: {
-      optional: [{
-        sourceId: videoSource
-      }]
-    }
-  };
-  navigator.getUserMedia(constraints, successCallback, errorCallback);
-}
+  function errorCallback(error) {
+    console.log('navigator.getUserMedia error: ', error);
+  }
 
+  function startVideo(videoSource) {
+    var constraints = {
+      video: {
+        optional: [{
+          sourceId: videoSource
+        }]
+      }
+    };
+    navigator.getUserMedia(constraints, successCallback, errorCallback);
+  }
 
-
-function initDraggable() {
-    $('.draggable').each(function() {
-      $(this).draggable({
-        stack: ".handler"
+  function initDragResize() {
+      $('.draggable').each(function() {
+        $(this).draggable({
+          stack: '.handler'
+        });
       });
-    });
-    $('.resizable').each(function() {
-      $(this).resizable({
-        animate: true
+      $('.resizable').each(function() {
+        $(this).resizable({
+          handles: 'all',
+          aspectRatio: true,
+          autoHide: true,
+          stop: function () {
+            // $(window).trigger('resize.fittext');
+          }
+        });
       });
-    });
-}
+  }
 
-function initializeClock(id, endtime){
-  var clock = document.getElementById(id);
-  var timeinterval = setInterval(function(){
-    var t = getTimeRemaining(endtime);
-    clock.innerHTML = 'days: ' + t.days + '<br>' +
-                      'hours: '+ t.hours + '<br>' +
-                      'minutes: ' + t.minutes + '<br>' +
-                      'seconds: ' + t.seconds;
-    if(t.total<=0){
-      clearInterval(timeinterval);
-    }
-  },1000);
-}
+
+  function setRotateVideoBtnListener() {
+    $videoContainer.on('click', '.rotateButton', function (e) {
+      e.preventDefault();
+
+      $videoHandler = $(this).closest('.handler');
+      var currentRotation = $videoHandler.data('rotation') || 0;
+      var newRotation = currentRotation + 90;
+      $videoHandler.animateRotate(newRotation, 0);
+      $videoHandler.data('rotation', newRotation);
+      initDragResize();
+
+      return false;
+    });
+  }
+
+});
+
+$.fn.animateRotate = function(angle, duration, easing, complete) {
+  var args = $.speed(duration, easing, complete);
+  var step = args.step;
+  return this.each(function(i, e) {
+    args.complete = $.proxy(args.complete, e);
+    args.step = function(now) {
+      $.style(e, 'transform', 'rotate(' + now + 'deg)');
+      if (step) return step.apply(e, arguments);
+    };
+
+    $({deg: 0}).animate({deg: angle}, args);
+  });
+};

@@ -22,15 +22,20 @@
 </head>
 
 <body>
-  <div class="clockwrapper draggable resizable">
+  <div class="clockwrapper resizable draggable">
     <h1 id="clock" >00:00</h1>
     <button id="start-stop">Start</button>
     <button id="reset" class="danger">Reset</button>
   </div>
   <div class="videoContainer"></div>
-  <div id="clockdiv"></div>
+
+  <div class="handler resizable  draggable hidden">
+    <a href="#" class="rotateButton "><span class="ui-icon ui-icon-arrowrefresh-1-s">Rotate</span></a>
+  </div>
+
 
   <script src="js/jquery-2.2.0.min.js"></script>
+  <script src="js/jquery.fittext.js"></script>
   <script src="js/jquery-ui.min.js"></script>
   <script src="js/main.js"></script>
   <script src="js/stopwatch.js"></script>
