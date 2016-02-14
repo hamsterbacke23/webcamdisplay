@@ -23,7 +23,7 @@ $(function () {
 
   if (typeof MediaStreamTrack === 'undefined' ||
       typeof MediaStreamTrack.getSources === 'undefined') {
-    alert('This browser does not support MediaStreamTrack.\n\nTry Chrome.');
+    alert('Sorry, this browser does not support MediaStreamTrack.');
   } else {
     MediaStreamTrack.getSources(gotSources);
   }
@@ -66,10 +66,7 @@ $(function () {
         $(this).resizable({
           handles: 'all',
           aspectRatio: true,
-          autoHide: true,
-          stop: function () {
-            // $(window).trigger('resize.fittext');
-          }
+          autoHide: true
         });
       });
   }
