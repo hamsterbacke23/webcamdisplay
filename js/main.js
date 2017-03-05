@@ -1,15 +1,27 @@
 require('modules/jquery-ui/themes/base/base.css');
-// require('modules/jquery-ui/themes/base/jquery-ui.structure.css');
+// require('modules/jquery-ui/themes/base/structure.css');
 require('modules/jquery-ui/themes/base/draggable.css');
 require('modules/jquery-ui/themes/base/resizable.css');
 require('modules/jquery-ui/themes/base/theme.css');
 require('../sass/main.scss');
-var $ = require('jquery');
+var $ = jQuery = require('jquery');
 require('jquery-ui');
+require('jquery-ui/ui/widgets/draggable');
+require('jquery-ui/ui/widgets/resizable');
+require('./stopwatch');
+require('./jquery.fittext.js');
+require('../templates/index.html');
+
 
 $(function () {
+
   navigator.getUserMedia = navigator.getUserMedia ||
     navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+  if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+    alert('Sorry, this browser does not support MediaStreamTrack.');
+    return;
+  }
 
   var $videoHandler = $('.handler');
   var $video = $('<video muted autoplay ></video>');
@@ -17,53 +29,54 @@ $(function () {
   var $rotateButton = $('.rotateButton');
 
   // init stuff
-  // $('#clock').fitText(0.3);
+  $('#clock').fitText(0.3);
   setRotateVideoBtnListener();
+  start();
 
-  function gotSources(sourceInfos) {
-    for (var i = 0; i !== sourceInfos.length; ++i) {
-      var sourceInfo = sourceInfos[i];
-      if (sourceInfo.kind === 'video') {
-        startVideo(sourceInfo.id);
-      }
-    }
+  function startVideo(deviceId) {
+    var constraints = {
+      video: { width: 1280, height: 720 } // Prefer camera resolution nearest to 1280x720.
+    };
+
+    navigator.mediaDevices.getUserMedia(constraints)
+      .then(function(mediaStream) {
+        successCallback(mediaStream);
+      })
+      .catch(function(err) { console.log(err.name + ": " + err.message); });
+
   }
 
-  console.log(typeof MediaStreamTrack);
-
-  if (typeof MediaStreamTrack === 'undefined') {
-    alert('Sorry, this browser does not support MediaStreamTrack.');
-  } else {
-    MediaStreamTrack.getSources(gotSources);
+  function start() {
+    navigator.mediaDevices.enumerateDevices()
+      .then(function(devices) {
+        devices.forEach(function(device) {
+          if (device.kind === 'videoinput') {
+            startVideo(device.id);
+          }
+        });
+      })
+      .catch(function(err) {
+        console.log(err.name + ": " + err.message);
+      });
   }
 
   function successCallback(stream) {
-    window.stream = stream; // make stream available to console
-    var $videoHandlerInstance = $videoHandler.clone().show();
+    var $videoHandlerInstance = $videoHandler.clone().removeClass('hidden');
     var $videoInstance = $video.clone();
     $videoContainer.append($videoHandlerInstance.append($videoInstance));
 
-    $videoInstance.attr('src', window.URL.createObjectURL(stream));
-    $videoInstance[0].play();
+    $videoInstance[0].srcObject = stream;
+    $videoInstance[0].onloadedmetadata = function(e) {
+      $videoInstance[0].play();
+    };
 
     initDragResize();
-
   }
 
   function errorCallback(error) {
     console.log('navigator.getUserMedia error: ', error);
   }
 
-  function startVideo(videoSource) {
-    var constraints = {
-      video: {
-        optional: [{
-          sourceId: videoSource
-        }]
-      }
-    };
-    navigator.getUserMedia(constraints, successCallback, errorCallback);
-  }
 
   function initDragResize() {
       $('.draggable').each(function() {

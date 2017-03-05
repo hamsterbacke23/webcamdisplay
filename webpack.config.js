@@ -1,8 +1,6 @@
 const debug = process.env.NODE_ENV !== 'production';
 const webpack = require('webpack');
-const publicPath = 'dist';
 const contentBase = 'docs';
-const build = contentBase + '/' + publicPath;
 const path = require('path');
 
 module.exports = {
@@ -12,7 +10,6 @@ module.exports = {
   watch: true,
   output: {
     path: path.resolve(__dirname, contentBase),
-    publicPath: publicPath,
     filename: 'bundle.js'
   },
   devServer: {
@@ -36,16 +33,37 @@ module.exports = {
   ],
   module: {
     loaders: [
-      { test: /\.css$/, loader: "style!css" },
-      { test: /\.(jpe?g|png|gif)$/i, loader:"file" },
+      {
+        test: /\.css$/,
+        loader: 'style!css' },
+      {
+        test: /\.(jpe?g|png|gif)$/i,
+        loader: 'file'
+      },
+      {
+        test: /\.html$/,
+        loader: 'html-loader'
+      }
     ],
     rules: [{
         test: /\.css$/,
-        use: [{loader: 'css-loader'}]
+        use: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.html$/,
+        use: [{loader: 'html-loader'}]
       },
       {
         test: /\.(jpe?g|png|gif)$/i,
-        loader: [{loader: 'file-loader'}]
+        use: [{loader: 'file-loader'}]
+      },
+      {
+        test: /\.html$/,
+        use: [
+                "file-loader?name=[name].[ext]",
+                "extract-loader?publicPath=../",
+                "html-loader"
+              ]
       },
       {
          test: /\.scss$/,
