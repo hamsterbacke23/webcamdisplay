@@ -1,12 +1,14 @@
 {
   "parser": "babel-eslint",
-  "extends": "airbnb",
+  "extends": "eslint:recommended",
   "env": {
-    "browser": true
+    "browser": true,
+    "node": true
   },
   "globals": {
     document: true,
     navigator: true,
+    require: true,
   },
   "rules" : {
     "class-methods-use-this": 1

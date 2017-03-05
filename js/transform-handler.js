@@ -50,7 +50,7 @@ export class TransformHandler {
     if (typeof this.domEl.addEventListener !== 'function') {
       return;
     }
-    this.domEl.addEventListener('click', this.clickHandler.apply(this));
+    this.domEl.addEventListener('click', this.clickHandler.bind(this));
   }
 
   clickHandler(e) {

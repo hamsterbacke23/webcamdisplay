@@ -30,12 +30,12 @@ module.exports = {
   ],
   module: {
     rules: [
-      // {
-      //   enforce: 'pre',
-      //   test: /\.js$/,
-      //   exclude: ['/node_modules/', __dirname + '/js/vendor/'],
-      //   loaders: 'eslint-loader',
-      // },
+      {
+        enforce: 'pre',
+        test: /\.js$/,
+        exclude: ['/node_modules/', __dirname + '/js/vendor/'],
+        loaders: 'eslint-loader',
+      },
       {
         test: /\.js$/,
         exclude: ['/node_modules/', __dirname + '/js/vendor/'],
