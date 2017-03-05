@@ -4,7 +4,8 @@
   "description": "Display webcam sources",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack-dev-server",
+    "postversion": "publish-ghpages.sh dist"
   },
   "keywords": [
     "webcam"
@@ -12,8 +13,14 @@
   "author": "tobias schmidt",
   "license": "ISC",
   "dependencies": {
-    "serve-static": "~1.10.2",
-    "http": "0.0.0",
-    "finalhandler": "~0.4.1"
+    "css-loader": "^0.26.2",
+    "file-loader": "^0.10.1",
+    "jquery": "^3.1.1",
+    "jquery-ui": "^1.12.1",
+    "node-sass": "^4.5.0",
+    "sass-loader": "^6.0.2",
+    "style-loader": "^0.13.2",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.1"
   }
 }

@@ -1,4 +1,12 @@
-'use strict';
+require('modules/jquery-ui/themes/base/base.css');
+// require('modules/jquery-ui/themes/base/jquery-ui.structure.css');
+require('modules/jquery-ui/themes/base/draggable.css');
+require('modules/jquery-ui/themes/base/resizable.css');
+require('modules/jquery-ui/themes/base/theme.css');
+require('../sass/main.scss');
+var $ = require('jquery');
+require('jquery-ui');
+
 $(function () {
   navigator.getUserMedia = navigator.getUserMedia ||
     navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -9,7 +17,7 @@ $(function () {
   var $rotateButton = $('.rotateButton');
 
   // init stuff
-  $('#clock').fitText(0.3);
+  // $('#clock').fitText(0.3);
   setRotateVideoBtnListener();
 
   function gotSources(sourceInfos) {
@@ -21,8 +29,9 @@ $(function () {
     }
   }
 
-  if (typeof MediaStreamTrack === 'undefined' ||
-      typeof MediaStreamTrack.getSources === 'undefined') {
+  console.log(typeof MediaStreamTrack);
+
+  if (typeof MediaStreamTrack === 'undefined') {
     alert('Sorry, this browser does not support MediaStreamTrack.');
   } else {
     MediaStreamTrack.getSources(gotSources);
