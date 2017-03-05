@@ -31,26 +31,9 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false })
   ],
   module: {
-    loaders: [
-      {
-        test: /\.css$/,
-        loader: 'style!css' },
-      {
-        test: /\.(jpe?g|png|gif)$/i,
-        loader: 'file'
-      },
-      {
-        test: /\.html$/,
-        loader: 'html-loader'
-      }
-    ],
     rules: [{
         test: /\.css$/,
         use: ['style-loader', 'css-loader']
-      },
-      {
-        test: /\.html$/,
-        use: [{loader: 'html-loader'}]
       },
       {
         test: /\.(jpe?g|png|gif)$/i,
@@ -59,10 +42,10 @@ module.exports = {
       {
         test: /\.html$/,
         use: [
-                "file-loader?name=[name].[ext]",
-                "extract-loader?publicPath=../",
-                "html-loader"
-              ]
+          "file-loader?name=[name].[ext]",
+          "extract-loader?publicPath=../",
+          "html-loader"
+        ]
       },
       {
          test: /\.scss$/,
