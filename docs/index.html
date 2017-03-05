@@ -7,23 +7,28 @@
   </head>
 
   <body>
-    <div class="clockwrapper resizable draggable">
-      <h1 id="clock" >00:00</h1>
-      <button id="start-stop">Start</button>
-      <button id="reset" class="danger">Reset</button>
-    </div>
 
     <div class="videoContainer"></div>
 
-    <div class="handler resizable draggable hidden">
-      <a href="#" class="rotateButton "><span class="ui-icon ui-icon-arrowrefresh-1-s">Rotate</span></a>
+
+    <div class="handler draggable hidden">
+      <a href="#" class="rotatebutton "><span class="ui-icon ui-icon-arrowrefresh-1-s">Rotate</span></a>
     </div>
 
-    <script src="bundle.js"></script>
+    <div class="timer">
+      <div class="clockwrapper draggable">
+        <h1 id="clock" >00:00</h1>
+        <button id="start-stop">Start</button>
+        <button id="reset" class="danger">Reset</button>
+      </div>
+    </div>
+
 
     <a class="link-github" href="https://github.com/hamsterbacke23/webcamdisplay" title="Go to Github source">
       <img src="https://assets-cdn.github.com/pinned-octocat.svg" alt="">
     </a>
+
+    <script src="bundle.js"></script>
 
   </body>
 </html>

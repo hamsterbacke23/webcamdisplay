@@ -1,7 +1,9 @@
 const debug = process.env.NODE_ENV !== 'production';
+
 const webpack = require('webpack');
-const contentBase = 'docs';
 const path = require('path');
+
+const contentBase = 'docs';
 
 module.exports = {
   context: __dirname,
@@ -9,53 +11,61 @@ module.exports = {
   entry: './js/main.js',
   output: {
     path: path.resolve(__dirname, contentBase),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   devServer: {
-    contentBase: contentBase,
-    port: 3000
+    contentBase,
+    port: 3000,
   },
-  resolve : {
+  resolve: {
     alias: {
-      modules: path.join(__dirname, 'node_modules')
-    }
+      modules: path.join(__dirname, 'node_modules'),
+      'jquery-ui': path.join(__dirname, 'node_modules/jquery-ui'),
+    },
   },
   plugins: debug ? [] : [
-    new webpack.ProvidePlugin({
-      '$': 'jquery',
-      'jQuery': 'jquery',
-      'window.jQuery': 'jquery'
-    }),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false })
+    new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
   ],
   module: {
-    rules: [{
+    rules: [
+      // {
+      //   enforce: 'pre',
+      //   test: /\.js$/,
+      //   exclude: ['/node_modules/', __dirname + '/js/vendor/'],
+      //   loaders: 'eslint-loader',
+      // },
+      {
+        test: /\.js$/,
+        exclude: ['/node_modules/', __dirname + '/js/vendor/'],
+        loaders: 'babel-loader',
+      },
+      {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(jpe?g|png|gif)$/i,
-        use: [{loader: 'file-loader'}]
+        use: [{ loader: 'file-loader' }],
       },
       {
         test: /\.html$/,
         use: [
-          "file-loader?name=[name].[ext]",
-          "extract-loader?publicPath=../",
-          "html-loader"
-        ]
+          'file-loader?name=[name].[ext]',
+          'extract-loader?publicPath=../',
+          'html-loader',
+        ],
       },
       {
-         test: /\.scss$/,
-         use: [{
-             loader: 'style-loader' // creates style nodes from JS strings
-         }, {
-             loader: 'css-loader' // translates CSS into CommonJS
-         }, {
-             loader: 'sass-loader' // compiles Sass to CSS
-         }]
-     }]
-   }
+        test: /\.scss$/,
+        use: [{
+          loader: 'style-loader',
+        }, {
+          loader: 'css-loader',
+        }, {
+          loader: 'sass-loader',
+        }],
+      }],
+  },
 };

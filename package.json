@@ -13,7 +13,14 @@
   "author": "tobias schmidt",
   "license": "ISC",
   "dependencies": {
+    "babel-eslint": "^7.1.1",
     "css-loader": "^0.26.2",
+    "eslint": "^3.17.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-loader": "^1.6.3",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.0",
     "extract-loader": "^0.1.0",
     "file-loader": "^0.10.1",
     "html-loader": "^0.4.5",
@@ -24,5 +31,10 @@
     "style-loader": "^0.13.2",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.4.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.3.2",
+    "babel-preset-env": "^1.2.0"
   }
 }

@@ -5,12 +5,18 @@ body {
   font-family: Helvetica, Arial;
 }
 
+.timer {
+  position: relative;
+}
+
 .clockwrapper {
-  float: left;
+  position: relative;
+  float: right;
   display: block;
   padding: 20px;
   text-align: center;
 }
+
 .clockwrapper h1 {
   color: #fff;
   margin: 0 0 10px 0;
@@ -36,7 +42,7 @@ body {
   box-sizing: border-box;
 }
 
-.handler .rotateButton {
+.handler .rotatebutton {
   width: 20px;
   height: 20px;
   /*background-color: rgba(0, 191, 255, 0.9);*/
@@ -49,20 +55,20 @@ body {
   display: none;
 }
 
-.handler .rotateButton:hover {
+.handler .rotatebutton:hover {
   background-color: rgba(50, 50, 50, 1);
 }
 
-.handler:hover .rotateButton {
+.handler:hover .rotatebutton {
   display: block;
 }
 
-.handler .rotateButton span {
+.handler .rotatebutton span {
   position: absolute;
   left: 3px;
   top: 3px;
+  pointer-events: none;
 }
-
 
 
 .handler video {

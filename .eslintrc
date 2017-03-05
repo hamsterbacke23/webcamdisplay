@@ -1,0 +1,15 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "env": {
+    "browser": true
+  },
+  "globals": {
+    document: true,
+    navigator: true,
+  },
+  "rules" : {
+    "class-methods-use-this": 1
+  }
+
+}
