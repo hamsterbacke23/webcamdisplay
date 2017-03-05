@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Webcam display</title>
+  </head>
+
+  <body>
+    <div class="clockwrapper resizable draggable">
+      <h1 id="clock" >00:00</h1>
+      <button id="start-stop">Start</button>
+      <button id="reset" class="danger">Reset</button>
+    </div>
+
+    <div class="videoContainer"></div>
+
+    <div class="handler resizable draggable hidden">
+      <a href="#" class="rotateButton "><span class="ui-icon ui-icon-arrowrefresh-1-s">Rotate</span></a>
+    </div>
+
+    <script src="/bundle.js"></script>
+
+    <a class="link-github" href="https://github.com/hamsterbacke23/webcamdisplay" title="Go to Github source">
+      <img src="https://assets-cdn.github.com/pinned-octocat.svg" alt="">
+    </a>
+
+  </body>
+</html>
