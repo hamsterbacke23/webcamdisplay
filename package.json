@@ -2,10 +2,9 @@
   "name": "Webcam",
   "version": "0.5.1",
   "description": "Display webcam sources",
-  "main": "index.js",
+  "main": "docs/index.html",
   "scripts": {
-    "start": "webpack-dev-server",
-    "postversion": "publish-ghpages.sh dist"
+    "start": "webpack-dev-server"
   },
   "keywords": [
     "webcam"
@@ -13,6 +12,10 @@
   "author": "tobias schmidt",
   "license": "ISC",
   "dependencies": {
+    "jquery": "^3.1.1",
+    "jquery-ui": "^1.12.1"
+  },
+  "devDependencies": {
     "babel-eslint": "^7.1.1",
     "css-loader": "^0.26.2",
     "eslint": "^3.17.0",
@@ -20,15 +23,11 @@
     "extract-loader": "^0.1.0",
     "file-loader": "^0.10.1",
     "html-loader": "^0.4.5",
-    "jquery": "^3.1.1",
-    "jquery-ui": "^1.12.1",
     "node-sass": "^4.5.0",
     "sass-loader": "^6.0.2",
     "style-loader": "^0.13.2",
     "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.4.1"
-  },
-  "devDependencies": {
+    "webpack-dev-server": "^2.4.1",
     "babel-core": "^6.23.1",
     "babel-loader": "^6.3.2",
     "babel-preset-env": "^1.2.0"
