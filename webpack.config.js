@@ -7,7 +7,6 @@ module.exports = {
   context: __dirname,
   devtool: debug ? 'inline-sourcemap' : null,
   entry: './js/main.js',
-  watch: true,
   output: {
     path: path.resolve(__dirname, contentBase),
     filename: 'bundle.js'
