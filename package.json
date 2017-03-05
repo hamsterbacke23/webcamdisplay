@@ -4,7 +4,7 @@
   "description": "Display webcam sources",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --watch-poll",
+    "start": "webpack-dev-server",
     "postversion": "publish-ghpages.sh dist"
   },
   "keywords": [
