@@ -1,5 +1,5 @@
-const debug = process.env.NODE_ENV !== 'production';
-
+// const debug = process.env.NODE_ENV !== 'production';
+const debug = false;
 const webpack = require('webpack');
 const path = require('path');
 
@@ -7,7 +7,7 @@ const contentBase = 'docs';
 
 module.exports = {
   context: __dirname,
-  devtool: debug ? 'inline-sourcemap' : null,
+  devtool: debug ? 'inline-sourcemap' : false,
   entry: './js/main.js',
   output: {
     path: path.resolve(__dirname, contentBase),
@@ -23,22 +23,21 @@ module.exports = {
       'jquery-ui': path.join(__dirname, 'node_modules/jquery-ui'),
     },
   },
-  plugins: debug ? [] : [
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
-  ],
+  plugins: [],
   module: {
     rules: [
       {
         enforce: 'pre',
         test: /\.js$/,
-        exclude: ['/node_modules/', __dirname + '/js/vendor/'],
+        exclude: [__dirname + '/node_modules/', __dirname + '/js/vendor/'],
         loaders: 'eslint-loader',
       },
       {
         test: /\.js$/,
-        exclude: ['/node_modules/', __dirname + '/js/vendor/'],
+        exclude: [__dirname + '/node_modules/', __dirname + '/js/vendor/'],
+        query: {
+          presets: ['es2015']
+        },
         loaders: 'babel-loader',
       },
       {

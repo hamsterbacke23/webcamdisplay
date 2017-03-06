@@ -1,10 +1,8 @@
-require('jquery-ui/themes/base/base.css');
-require('jquery-ui/themes/base/draggable.css');
-require('jquery-ui/themes/base/resizable.css');
-require('jquery-ui/themes/base/theme.css');
-require('jquery-ui');
 require('jquery-ui/ui/widgets/draggable');
 require('jquery-ui/ui/widgets/resizable');
+require('jquery-ui/themes/base/base.css');
+require('jquery-ui/themes/base/theme.css');
+
 
 const $ = require('jquery');
 
