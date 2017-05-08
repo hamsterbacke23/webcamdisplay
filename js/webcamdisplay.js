@@ -30,12 +30,13 @@ export class WebcamDisplay {
     return this.navigator.mediaDevices && this.navigator.mediaDevices.enumerateDevices;
   }
 
-  startVideo() {
+  startVideo(deviceId) {
     const constraints = {
+      deviceId:  {exact: deviceId},
       video: { width: 1280, height: 720 },
     };
 
-    navigator.mediaDevices.getUserMedia(constraints)
+    navigator.mediaDevices.getUserMedia({video: constraints})
       .then(this.successCallback.bind(this))
       .catch(this.errorCallback);
   }
@@ -57,7 +58,7 @@ export class WebcamDisplay {
   onStartWebcams(devices) {
     devices.forEach((device) => {
       if (device.kind === 'videoinput') {
-        this.startVideo(device.id);
+        this.startVideo(device.deviceId);
       }
     });
   }
