@@ -1,4 +1,8 @@
-# Webcamdisplay
+# Checkout the rewrite in react:
+https://github.com/hamsterbacke23/webcamdisplay-react
+
+-----
+## Webcamdisplay
 Display all your connected webcams on a single webpage.
 Great for usability testing recordings and screencasts, stopwatch is included.
 
