@@ -4,7 +4,8 @@
   "description": "Display webcam sources",
   "main": "docs/index.html",
   "scripts": {
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "build": "webpack -p"
   },
   "keywords": [
     "webcam"
