@@ -14,6 +14,12 @@ Great for usability testing recordings and screencasts, stopwatch is included.
 See it working in action: [Click here](https://hamsterbacke23.github.io/webcamdisplay/)
 
 ## Local development
+
+Install dependencies
+```bash
+npm install
+```
+
 Start the webpack server 
 ```bash
 npm start
